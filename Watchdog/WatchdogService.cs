@@ -39,7 +39,6 @@ namespace RingNotify.Watchdog
       }
 
       Logger.LogInformation($"{nameof(WatchdogService)} Stopped!");
-      return;
     }
 
     private bool Init(out ulong intervalMicroSeconds)

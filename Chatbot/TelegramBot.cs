@@ -27,6 +27,7 @@ namespace RingNotify.Chatbot
     {
       using var stream = new MemoryStream();
       image.Save(stream, ImageFormat.Png);
+      stream.Position = 0;
       await Client.SendPhotoAsync(chatId, stream, message);
     }
   }

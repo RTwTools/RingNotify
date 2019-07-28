@@ -1,5 +1,4 @@
-﻿using System;
-using System.Device.Gpio;
+﻿using System.Device.Gpio;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -61,18 +60,26 @@ namespace RingNotify.NotifyService
     {
       Logger.LogInformation($"{nameof(RingNotifyService)} Started!");
 
+      stoppingToken.Register(() =>
+      {
+        GpioController.ClosePin(NotifyPin);
+        Logger.LogInformation($"{nameof(RingNotifyService)} Stopping!");
+      });
+
       while (!stoppingToken.IsCancellationRequested)
       {
         if (GpioController.Read(NotifyPin) == PinValue.High)
         {
+          Logger.LogInformation($"{nameof(RingNotifyService)} Received doorbell signal!");
           (bool result, Bitmap screenshot) = await Camera.SnapShot();
+
           if (result)
           {
             await Chatbot.SendMessage(ChatId, NotificationText, screenshot);
           }
           else
           {
-            // Notification without screenshot.
+            Logger.LogWarning($"{nameof(RingNotifyService)} Couldn't get screenshot from camera!");
             await Chatbot.SendMessage(ChatId, NotificationText);
           }
 
