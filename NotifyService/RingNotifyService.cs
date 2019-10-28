@@ -42,7 +42,7 @@ namespace RingNotify.NotifyService
     /// <summary>
     /// Gpio controller.
     /// </summary>
-    public IGpioController GpioController { get; } = new GpioController();
+    public GpioController GpioController { get; } = new GpioController();
 
     public RingNotifyService(IRingNotifyOptions options, ILogger<RingNotifyService> logger)
     {
@@ -91,6 +91,12 @@ namespace RingNotify.NotifyService
 
       GpioController.ClosePin(NotifyPin);
       Logger.LogInformation($"{nameof(RingNotifyService)} Stopping!");
+    }
+
+    public override void Dispose()
+    {
+      GpioController.Dispose();
+      base.Dispose();
     }
   }
 }

@@ -1,1 +1,0 @@
-dotnet publish -c Release -r linux-arm -o ./release /p:PublishSingleFile=true
