@@ -76,6 +76,7 @@ namespace RingNotify.NotifyService
           if (result)
           {
             await Chatbot.SendMessage(ChatId, NotificationText, screenshot);
+            screenshot.Dispose();
           }
           else
           {

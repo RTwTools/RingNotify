@@ -6,7 +6,7 @@ using BotClient = Telegram.Bot.TelegramBotClient;
 
 namespace RingNotify.Chatbot
 {
-  class TelegramBot : IChatbot
+  public class TelegramBot : IChatbot
   {
     /// <summary>
     /// Telegram Bot Client.
