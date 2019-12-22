@@ -1,0 +1,1 @@
+dotnet publish -r linux-arm -c Release -o ./release/linux-arm --self-contained false ./RingNotify

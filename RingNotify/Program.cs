@@ -32,6 +32,10 @@ namespace RingNotify
     private static IHostBuilder CreateHostBuilder()
     {
       return new HostBuilder()
+        .UseSerilog((hostingContext, loggerConfiguration) =>
+        {
+          loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration);
+        })
         .ConfigureHostConfiguration(config =>
         {
           config.SetBasePath(AppDomain.CurrentDomain.BaseDirectory);
@@ -44,11 +48,7 @@ namespace RingNotify
             x => CreateRingNotifyOptions(hostContext.Configuration));
           services.AddHostedService<RingNotifyService>();
           services.AddHostedService<WatchdogService>();
-
-          Log.Logger = new LoggerConfiguration()
-            .ReadFrom.Configuration(hostContext.Configuration).CreateLogger();
-        })
-        .UseSerilog();
+        });
     }
 
     private static RingNotifyOptions CreateRingNotifyOptions(IConfiguration configuration)
