@@ -4,7 +4,6 @@ using Microsoft.Extensions.Hosting;
 using RingNotify.Camera;
 using RingNotify.Chatbot;
 using RingNotify.NotifyService;
-using RingNotify.Watchdog;
 using Serilog;
 using System;
 using System.Globalization;
@@ -47,7 +46,6 @@ namespace RingNotify
           services.AddTransient<IRingNotifyOptions, RingNotifyOptions>(
             x => CreateRingNotifyOptions(hostContext.Configuration));
           services.AddHostedService<RingNotifyService>();
-          services.AddHostedService<WatchdogService>();
         });
     }
 
