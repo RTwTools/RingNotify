@@ -31,6 +31,7 @@ namespace RingNotify
     private static IHostBuilder CreateHostBuilder()
     {
       return new HostBuilder()
+        .UseSystemd()
         .UseSerilog((hostingContext, loggerConfiguration) =>
         {
           loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration);
